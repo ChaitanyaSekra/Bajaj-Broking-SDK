@@ -33,6 +33,27 @@ async function placeOrder() {
   alert(`Order Status: ${data.status}`);
 }
 
+async function placeOrder2() {
+  const symbol = document.getElementById("symbol").value;
+  const quantity = parseInt(document.getElementById("quantity").value);
+
+  const res = await fetch(`${BASE_URL}/orders`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      symbol: symbol,
+      side: "SELL",
+      orderType: "MARKET",
+      quantity: quantity
+    })
+  });
+
+  
+
+  const data = await res.json();
+  alert(`Order Status: ${data.status}`);
+}
+
 async function loadTrades() {
   const res = await fetch(`${BASE_URL}/trades`);
   const data = await res.json();
@@ -46,3 +67,4 @@ async function loadPortfolio() {
   document.getElementById("portfolio").innerText =
     JSON.stringify(data, null, 2);
 }
+
